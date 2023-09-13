@@ -1,4 +1,4 @@
-#save-time {
+#retrieve-time, #save-time {
     position: fixed;
     top: 10px;
     right: 10px;
@@ -8,4 +8,10 @@
 }
 
 
+#back-button {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
