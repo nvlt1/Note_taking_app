@@ -29,9 +29,11 @@
 
     <script>
         const word  = document.getElementById('wordToInput').value
+        let words = "yes"
+        let definitions = "no"
         const definition = document.getElementById('defintionToInput').value
         async function post(){
-            fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}&definition=${definition}`, {
+            fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${words}&definition=${definitions}`, {
                 method: "POST"
             })
                 .then(res => res.json())
