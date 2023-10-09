@@ -31,7 +31,7 @@
         const word  = document.getElementById('wordToInput').value
         const definition = document.getElementById('defintionToInput').value
         async function post(){
-            fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}&definitions=${definition}`, {
+            fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}&definition=${definition}`, {
                 method: "POST"
             })
                 .then(res => res.json())
