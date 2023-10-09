@@ -28,9 +28,7 @@
                 .then(res => res.json())
                 // once it works change the json to json[word]
                 // rid console for document.getelementbyID('results').innerHTML = json[word] <- this is ajax
-                .then(json => document.getElementById('results').inneHTML = json.word_object.word_def)
-                // console.log(json)
-                // .then(json => console.log(json))
+                .then(json => document.getElementById('results').innerText = json.word_object.word_def)
         } 
     </script>
     

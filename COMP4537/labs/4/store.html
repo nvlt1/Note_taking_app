@@ -14,8 +14,8 @@
     <br>
     <!-- areabox for definition and submit button -->
     <h2>Definition</h2>
-    <label for="defintionToInput"></label>
-    <input type="text" id="defintionToInput" placeholder="Input defintion here">
+    <label for="definitionToInput"></label>
+    <input type="text" id="definitionToInput" placeholder="Input defintion here">
 
     <br>
     <br>
@@ -28,12 +28,10 @@
     </div>
 
     <script>
-        const word  = document.getElementById('wordToInput').value
-        let words = "yes"
-        let definitions = "no"
-        const definition = document.getElementById('defintionToInput').value
         async function post(){
-            fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${words}&definition=${definitions}`, {
+            const word  = document.getElementById('wordToInput').value
+            const definition = document.getElementById('definitionToInput').value
+            fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}&definition=${definition}`, {
                 method: "POST"
             })
                 .then(res => res.json())
