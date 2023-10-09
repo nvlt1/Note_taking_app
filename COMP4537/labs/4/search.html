@@ -22,15 +22,26 @@
     <script>
         async function getAll(){
             const word  = document.getElementById('searchForInput').value
+            
             fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}`, {
                 method: "GET"
             })
                 .then(res => res.json())
                 // once it works change the json to json[word]
                 // rid console for document.getelementbyID('results').innerHTML = json[word] <- this is ajax
-                .then(json => document.getElementById('results').innerText = json.word_object.word_def)
+                .then(json => {
+                    if (json.error){
+                    document.getElementById('results').innerText = `${json.response}: ${word} not found`
+                } else {
+                    document.getElementById('results').innerText = `${json.response}: Defintion: ${json.word_object.word_def}`
+                }
+
+                    }
+                )        
+
         } 
     </script>
     
 </body>
 </html>
+
