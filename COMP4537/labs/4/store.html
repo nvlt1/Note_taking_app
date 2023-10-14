@@ -33,8 +33,10 @@
             const definition = document.getElementById('definitionToInput').value
 
             const response = await fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}`)
+            // waits for response and parses it into a JSON object
             const data = await response.json()
             
+            // if API response shows success, it displays the word and its fetched definition
             if (data.success){
                 document.getElementById('storeMyResult').innerText = `Word: ${word}, Definition: ${data.response}`
             } else {
@@ -42,7 +44,10 @@
             } fetch(`https://shiny-cyan-dungarees.cyclic.app/api/definitions/?word=${word}&definition=${definition}`, {
                 method: "POST"
             })
+            // res.json() = a method on the response object which reads the response body and retunrs
+            // a promise that resolves with the result of parsing the body text as JSON
                 .then(res => res.json())
+                // Once response converted to JSON, this next part handles the processed JSON data
                 .then(json => {
                     if (json.success) {
                         document.getElementById('storeMyResult').innerText = `${json.response}: Word: ${word}, Definition: ${definition} added successfully!`
