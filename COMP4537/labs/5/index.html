@@ -10,7 +10,7 @@
 
     <br>
     
-    <button id="insertMyData">Submit query!</button>
+    <button id="insertMyData" onclick="post()">Submit query!</button>
     
     <br>
     
@@ -21,8 +21,15 @@
     </div>
 
 
-
     <script>
+        function post() {
+            xhttp.open("POST", endPointRoot + resource, true)
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            xhttp.send({query: "INSERT INTO patient(name, dateOfBirth) VALUES ('Sara Brown','1901-01-01'), ('Jack Ma', '1960-01-30'), ('John Smith', '1941-01-01'), ('Elon Musk', '1999-01-01')"})
+        }
+    </script>
+
+    <!-- <script>
         // get element id to insert queries, event listener with query values to INSERT
         document.getElementById('insertMyData').addEventListener('click', function(){
             dataToServer("POST", {
@@ -43,7 +50,7 @@
             const options = {
                 method: reqMethod,
                 headers: {
-                    'Content-Type': 'x-www-form-urlencoded'
+                    'Content-type': 'x-www-form-urlencoded'
                 },
                 body: JSON.stringify(data)
             }
@@ -61,7 +68,7 @@
             }
         }
 
-    </script>
+    </script> -->
     
     
 </body>
