@@ -51,7 +51,7 @@
                 document.getElementById("sqlResponse").textContent = JSON.stringify(data)
             })
             .catch(error => {
-                console.err('Error: ' + error)
+                console.log('Error: ' + error)
                 document.getElementById('sqlResponse').textContent = 'Eerror: ' + error.message
             })
         }
