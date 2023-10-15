@@ -24,7 +24,8 @@
     <script>
         const xhttp = new XMLHttpRequest()
         function post() {
-            xhttp.open("POST", endPointRoot + resource, true)
+            let endPointRoot = 'https://comp4537-lab5-h2bh.onrender.com/'
+            xhttp.open("POST", endPointRoot, true)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send({query: "INSERT INTO patient(name, dateOfBirth) VALUES ('Sara Brown','1901-01-01'), ('Jack Ma', '1960-01-30'), ('John Smith', '1941-01-01'), ('Elon Musk', '1999-01-01')"})
         }
