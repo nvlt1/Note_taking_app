@@ -5,6 +5,101 @@
     <title>Document</title>
 </head>
 <body>
+    
+    <button type="button" onclick="post()">POST</button>
+    <button type="button" onclick="query()">QUERY</button>
+
+    <textarea name="text" id="sqlQuery" cols="30" rows="10"></textarea>
+
+    <div id="demo">
+        no response yet
+    </div>
+    
+    <div id="table">
+        no table yet
+    </div>
+
+    <script>
+        const xhttp = new XMLHttpRequest()
+        let endPointRoot = 'https://comp4537-lab5-h2bh.onrender.com/'
+        async function post() {
+            xhttp.open("POST", endPointRoot + "lab5/insert", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+            let jsonStr = JSON.stringify({
+                query: "INSERT INTO patient(name, dateOfBirth) VALUES ('Sara Brown','1901-01-01'), ('Jack Ma', '1960-01-30'), ('John Smith', '1941-01-01'), ('Elon Musk', '1999-01-01')"
+            })
+            xhttp.send(jsonStr)
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = 
+                    this.responseText
+                }
+            }
+        }
+
+        async function get() {
+            const sqlQueries = document.getElementById('sqlQuery').value
+            xhttp.open("GET", endPointRoot + `lab5/select/${sqlQueries}`, true)
+            xhttp.send()
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let json = JSON.parse(this.responseText)
+                    document.getElementById("demo").innerHTML = 
+                    json.response
+                    document.getElementById("table").innerHTML = 
+                    JSON.stringify(json.result)
+                } else {
+                    document.getElementById("table").innerHTML = 
+                    this.responseText
+                }
+            }
+        }
+
+        async function insert() {
+            const sqlQueries = document.getElementById('sqlQuery').value
+            xhttp.open("POST", endPointRoot + "lab5/insert", true)
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+            let jsonStr = JSON.stringify({
+                query: sqlQueries
+            })
+            xhttp.send(jsonStr)
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = 
+                    this.responseText
+                } else {
+                    document.getElementById("table").innerHTML = 
+                    this.responseText
+                }
+            }
+        }
+
+        function query() {
+            const sqlQueries = document.getElementById('sqlQuery').value.toString()
+            if (sqlQueries.includes("SELECT") || sqlQueries.includes("select")) {
+                get()
+            } 
+
+            if (sqlQueries.includes("INSERT") || sqlQueries.includes("insert")) {
+                insert()
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 
     <textarea name="text" id="sqlQuery" cols="30" rows="10"></textarea>
 
@@ -29,7 +124,7 @@
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send({query: "INSERT INTO patient(name, dateOfBirth) VALUES ('Sara Brown','1901-01-01'), ('Jack Ma', '1960-01-30'), ('John Smith', '1941-01-01'), ('Elon Musk', '1999-01-01')"})
         }
-    </script>
+    </script> -->
 
     <!-- <script>
         // get element id to insert queries, event listener with query values to INSERT
@@ -73,5 +168,5 @@
     </script> -->
     
     
-</body>
-</html>
+<!-- </body>
+</html> -->
