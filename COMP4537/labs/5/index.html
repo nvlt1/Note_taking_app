@@ -35,7 +35,7 @@
             dataToServer(getOrPost, {query: sqlQueries})
         })
 
-        function dataToServer(reqMethod, data) {
+        async function dataToServer(reqMethod, data) {
             // change this to hosted server2 link
             const apiUrl = 'https://comp4537-lab5-h2bh.onrender.com/'
             const options = {
@@ -45,15 +45,18 @@
                 },
                 body: JSON.stringify(data)
             }
-            fetch(apiUrl, options)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("sqlResponse").textContent = JSON.stringify(data)
-            })
-            .catch(error => {
-                console.log('Error: ' + error)
-                document.getElementById('sqlResponse').textContent = 'Eerror: ' + error.message
-            })
+
+            try {
+                // get response
+                const response = await fetch(apiUrl, options)
+                // load json data
+                const responseData = await response.json()
+                document.getElementById('sqlResponse'). textContent = JSON.stringify(responseData)
+
+            } catch (error) {
+                console.log('Error ' + error)
+                document.getElementById('sqlResponse').textContent = 'Error ' + error.message
+            }
         }
 
     </script>
