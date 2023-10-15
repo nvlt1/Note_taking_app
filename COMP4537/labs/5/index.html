@@ -20,6 +20,8 @@
         response goes here
     </div>
 
+
+
     <script>
         // get element id to insert queries, event listener with query values to INSERT
         document.getElementById('insertMyData').addEventListener('click', function(){
@@ -41,7 +43,8 @@
             const options = {
                 method: reqMethod,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*' 
                 },
                 body: JSON.stringify(data)
             }
