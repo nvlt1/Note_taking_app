@@ -4,6 +4,13 @@ mySearchForm.addEventListener('submit', (event) => {
     // listens for submit and prevents default form submission ie: page refreshing after submit
     event.preventDefault();
 
+    function displayMessage(message, isError = false) {
+        const messageDisplay = document.getElementById('msgDisplay')
+        messageDisplay.textContent = message;
+        messageDisplay.style.display = 'block'
+        messageDisplay.style.color = isError ? 'red' : 'green'
+    }
+
     const word = document.getElementById('wordSearch').value
 
     const options = {
@@ -17,10 +24,10 @@ mySearchForm.addEventListener('submit', (event) => {
     .then(res => {
         // if there's a message to display, it will with a console.log 
         if (res.error) {
-            console.log(res.message)
+            displayMessage(res.message)
         } else {
             // error checking
-            console.log(res)
+            console.log(res)    
 
             // if no message, update textcontent w/ info from server
             document.getElementById('wordDef').textContent = res[0].definition;
@@ -29,6 +36,6 @@ mySearchForm.addEventListener('submit', (event) => {
         }
     })
     .catch(err => {
-        console.log(err)
+        displayMessage(err, true)
     })
 })
