@@ -2,6 +2,83 @@ document.addEventListener('DOMContentLoaded', function () {
     const writeForm = document.getElementById('myWriteForm')
     getAllLanguages();
 
+
+        // update existing word entry with PATCH req.
+        function updateFunc(word, definition, wordLanguage, definitionLanguage) {
+            const options = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    definition: definition,
+                    wordLanguage: wordLanguage,
+                    definitionLanguage: definitionLanguage
+                })
+            };
+    
+            fetch(`https://lively-toad-dungarees.cyclic.app/api/v1/definition/${word}`, options)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.message) {
+                        displayMessage(res.message)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    displayMessage('Error occured while updating the definition', true)
+                });
+        }
+    
+        // Deletes word entry 
+        function delWord() {
+            const word = document.getElementById('word').value
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            fetch(`https://lively-toad-dungarees.cyclic.app/api/v1/definition/${word}`, options)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.message) {
+                        displayMessage(res.message)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    displayMessage('Error occured while deleting the word', true)
+                })
+        }
+    
+        // global use
+        window.delWord = delWord;
+    
+        // get languages from server, populate form with retrieved options
+        function getAllLanguages() {
+            fetch('https://lively-toad-dungarees.cyclic.app/api/v1/languages')
+                .then(res => res.json())
+                .then(res => {
+                    const wordLanguage = document.getElementById('word-language')
+                    const definitionLanguage = document.getElementById('definition-language')
+                    console.log(res)
+                    res.forEach(language => {
+                        const wordChoice = document.createElement('option')
+                        wordChoice.value = language.language
+                        wordChoice.innerText = language.language
+                        wordLanguage.appendChild(wordChoice)
+    
+                        const definitionChoice = document.createElement('option')
+                        definitionChoice.value = language.language
+                        definitionChoice.innerText = language.language
+                        definitionLanguage.appendChild(definitionChoice)
+    
+                    })
+                })
+                .catch(err => console.log(err))
+        }
+
     writeForm.addEventListener('submit', function (event) {
         // listens for submit and prevents default form submission
         event.preventDefault();
@@ -51,81 +128,4 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMessage('Error occured while processing request', true)
             })
     })
-
-
-    // update existing word entry with PATCH req.
-    function updateFunc(word, definition, wordLanguage, definitionLanguage) {
-        const options = {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                definition: definition,
-                wordLanguage: wordLanguage,
-                definitionLanguage: definitionLanguage
-            })
-        };
-
-        fetch(`https://lively-toad-dungarees.cyclic.app/api/v1/definition/${word}`, options)
-            .then(res => res.json())
-            .then(res => {
-                if (res.message) {
-                    displayMessage(res.message)
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                displayMessage('Error occured while updating the definition', true)
-            });
-    }
-
-    // Deletes word entry 
-    function delWord() {
-        const word = document.getElementById('word').value
-        const options = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        fetch(`https://lively-toad-dungarees.cyclic.app/api/v1/definition/${word}`, options)
-            .then(res => res.json())
-            .then(res => {
-                if (res.message) {
-                    displayMessage(res.message)
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                displayMessage('Error occured while deleting the word', true)
-            })
-    }
-
-    // global use
-    window.delWord = delWord;
-
-    // get languages from server, populate form with retrieved options
-    function getAllLanguages() {
-        fetch('https://lively-toad-dungarees.cyclic.app/api/v1/languages')
-            .then(res => res.json())
-            .then(res => {
-                const wordLanguage = document.getElementById('word-language')
-                const definitionLanguage = document.getElementById('definition-language')
-                console.log(res)
-                res.forEach(language => {
-                    const wordChoice = document.createElement('option')
-                    wordChoice.value = language.language
-                    wordChoice.innerText = language.language
-                    wordLanguage.appendChild(wordChoice)
-
-                    const definitionChoice = document.createElement('option')
-                    definitionChoice.value = language.language
-                    definitionChoice.innerText = language.language
-                    definitionLanguage.appendChild(definitionChoice)
-
-                })
-            })
-            .catch(err => console.log(err))
-    }
 })
