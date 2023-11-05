@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write page</title>
+</head>
+<body>
+
+    <div id="msgDisplay" style="border: 1px solid black; margin-bottom: 10px; display: none;"></div>
+
+    <form id="myWriteForm">
+       <h3>Word</h3>
+        <input type="text" name="word" id="word">
+
+        <br>
+
+        <h3>Definition</h3>
+        <textarea name="definition" id="definition" cols="30" rows="5"></textarea>
+    
+        <br>
+
+        <h3>Word Language</h3>
+        <select name="word-language" id="word-language"></select>
+
+        <br>
+
+        <h3>Definition language</h3>
+        <select name="definition-language" id="definition-language"></select>
+        <br>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    
+    <button onclick="delWord()">Delete</button>
+
+    <script src="./write.js"></script>
+    
+</body>
+</html>
