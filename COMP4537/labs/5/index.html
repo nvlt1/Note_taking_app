@@ -26,6 +26,7 @@
             xhttp.open("POST", endPointRoot + "lab5/insert", true)
             xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
             let jsonStr = JSON.stringify({
+                table: "CREATE TABLE `freedb_comp3920NodeJS`.`patient` (`patientid` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(100) NOT NULL,`dateOfBirth` DATETIME NOT NULL,PRIMARY KEY (`patientid`));",
                 query: "INSERT INTO patient(name, dateOfBirth) VALUES ('Sara Brown','1901-01-01'), ('Jack Ma', '1960-01-30'), ('John Smith', '1941-01-01'), ('Elon Musk', '1999-01-01')"
             })
             xhttp.send(jsonStr)
@@ -39,7 +40,7 @@
 
         async function get() {
             const sqlQueries = document.getElementById('sqlQuery').value
-            xhttp.open("GET", endPointRoot + `lab5/select/${sqlQueries}`, true)
+            xhttp.open("GET", endPointRoot + `lab5/select/?query=${sqlQueries}`, true)
             xhttp.send()
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -76,12 +77,12 @@
 
         function query() {
             const sqlQueries = document.getElementById('sqlQuery').value.toString()
-            if (sqlQueries.includes("SELECT") || sqlQueries.includes("select")) {
+            if (sqlQueries.startsWith("SELECT") || sqlQueries.startsWith("select")) {
                 get()
-            } 
-
-            if (sqlQueries.includes("INSERT") || sqlQueries.includes("insert")) {
+            } else if (sqlQueries.startsWith("INSERT") || sqlQueries.startsWith("insert")) {
                 insert()
+            } else {
+                document.getElementById("table").innerHTML = "Please use SELECT or INSERT only."
             }
         }
     </script>
