@@ -30,6 +30,8 @@ mySearchForm.addEventListener('submit', (event) => {
             console.log(res)    
 
             // if no message, update textcontent w/ info from server
+            //text content represents the actual text content of the id selected
+            // res[0].def = retrieve the definition property from the first object in the res array
             document.getElementById('wordDef').textContent = res[0].definition;
             document.getElementById('word-language').textContent = res[0].word_lang;
             document.getElementById('definition-language').textContent = res[0].definition_lang;
