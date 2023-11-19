@@ -9,7 +9,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         password: password
     };
 
-    fetch('http://localhost:3000', {
+    fetch('https://comp4537-isa-project-back.onrender.com/api/ISA/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

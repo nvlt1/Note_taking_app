@@ -13,7 +13,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         password: password
     };
 
-    fetch('http://localhost:3000/signup', {
+    fetch('https://comp4537-isa-project-back.onrender.com/api/ISA/createuser', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
