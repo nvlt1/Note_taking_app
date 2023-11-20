@@ -19,7 +19,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(response => response.json())
     .then(data => {
         if(data.success) {
-            window.location.href = '/home.html'
+            window.location.href = '/COMP4537/project/home.html'
         } else {
             document.getElementById('msgDisplay').textContent = data.message;
         }

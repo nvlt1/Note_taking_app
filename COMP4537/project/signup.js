@@ -21,7 +21,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     .then(response => response.json())
     .then(data => {
         if(data.success) {
-            window.location.href = '/login.html';
+            window.location.href = '/COMP4537/project/login.html';
         } else {
             document.getElementById('msgDisplay').textContent = data.message
         }
