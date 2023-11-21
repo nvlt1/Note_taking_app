@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     logoutButton.addEventListener('click', function() {
         // document.cookie = ''
-        window.location.href = '/login.html'
+        window.location.href = '/COMP4537/project/login.html'
     });
 
     sendSentence.addEventListener('click', function() {
